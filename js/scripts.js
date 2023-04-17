@@ -45,7 +45,7 @@ let pokemonRepository = (function() {
 		{ 
 			name: "Sylveon", 
 			height: 1, 
-			types: ["Fairy"]
+			types: ["fairy"]
 		},
 		{ 
 			name: "Wailord", 
@@ -62,16 +62,35 @@ let pokemonRepository = (function() {
 	function add(pokemon) {
 		pokemonList.push(pokemon);
 	}
+	
+	function addListItem(pokemon) {
+		let listedPokemon = document.querySelector('.pokemon-list');
+		let listItem = document.createElement('li');
+		let button = document.createElement('button');
+		button.innerText = pokemon.name;
+		button.classList.add('pokemon-class');
+		listItem.appendChild(button);
+		listedPokemon.appendChild(listItem);
+
+		button.addEventListener('click', function(event) {
+			showDetails(pokemon);
+		});
+	}
+
+	function showDetails(pokemon) {
+		console.log(pokemon);
+	}
 
 
 	return {
 		getAll: getAll,
-		add: add
-	}
-})()
+		add: add,
+		addListItem: addListItem
+	};
+})();
 
 
 //forEach function that calls a loop and displays each Pokemon's details
 pokemonRepository.getAll().forEach(function(pokemon) {
-	console.log(pokemon.name + " is "+ pokemon.height + "m tall and it is a " + pokemon.types + " type!");
+	pokemonRepository.addListItem(pokemon);
 });
